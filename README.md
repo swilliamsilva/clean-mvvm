@@ -26,6 +26,7 @@ camada de DADOS
 
 -A informação e retornada da camada DATA para a camada de DOMINIO
 e da camada de DOMINIO para nossa VIEW MODEL na camada de apresentação.
+
 A VIEW MODEL modifica a VIEW que por consequencia atualiza o estado
 da VIEW e mostra a informação nova para o usuário.
 
@@ -33,7 +34,7 @@ O que representa cada uma das camadas?
 
 DATA ( dados )
 
-Quando a gente fala da camada de DADOS estamos falando que vamos ter
+Quando falomos da camada de DADOS estamos falando que vamos ter
 um repositório e este deve saber onde ele deve buscar as informações
 que ele precisa.
 
@@ -46,52 +47,57 @@ E vai receber essa informação do nosso SERVICE através de um RESPONSE.
 
 DOMAIN  ( dominio )
 
-Já a nossa camada de dominio ela vai ser composta por uma USER CASE .
+Já a nossa camada de dominio vai ser composta por uma USER CASE.
+
 Ela vai buscar a informação na nossa camada de DADOS através de uma
-função e vai receber como resposta dessa chamada em uma lista de
+função e vai receber como resposta dessa chamada uma lista de
 categorias e por fim na última camada do CLEAN temos a aprensentação
  " PRESENTER."
 
 PRESENTER ( apresentação )
-Composto pela VIEW é aqui que vamos criar um fragmento, o nosso FRAGMENT
-que vai se comunicar com o nosso VIEW MODEL e o VIEWMODEL e vai fazer
- a comunicação com a camada de DOMiNIO.
+Composto pela VIEW. 
 
-# Na aplicação onde usamos a CLEAN com MVVM
+É aqui que vamos criar um fragmento, o nosso FRAGMENT que vai se comunicar
+com o nosso VIEW MODEL e o VIEWMODEL e vai fazer a comunicação com a camada
+de DOMiNIO.
 
-Nessa  aplicação simples no ANDROID,  aqui dentro eu criei só um modulo
-a mais chamado HELPERs, dentro desse módulo eu tenho basicamente a minha
-camada de rede o que eu vou usar para conseguir chamar meu servidor.
+# Na aplicação onde usamos a CLEAN com MVVM no módulo WEB
 
-A nossa arquitetura, ela vai ser aplicada no módulo WEB e aqui a gente
-vai começar pelo CLEAN.
+Nessa  aplicação simples no ANDROID,  aqui dentro foi criado um modulo
+a mais chamado HELPERs, dentro desse módulo temos basicamente a 
+camada de rede o que vou usar para conseguir chamar meu servidor.
 
-Então ela esta separada nesses em três pacotes. O DATA, DOMAIN, PRESENTER.
+### A nossa arquitetura, ela vai ser aplicada no módulo WEB e aqui a gente
+vai começar pela CLEAN.
+
+Então ela esta separada nesses em três pacotes:
+ O DATA, DOMAIN e o PRESENTER.
 
 Então vamos começar falando da camada de DATA.
 
 Como sabe que ela vai ter que buscar as informações em um servidor dentro do
-pacote DATA vamos  criar dois pacotes.
+pacote DATA e para isso vamos criar dois pacotes dentro da camada.
 
 ## DATA  ( Dados )
 
 (* Nesse exercicio aprenda a localizar no código os pontos de marcação do
- fluxo, aqui sermpre destacado em vermelho e entre parenteses. )
+ fluxo, aqui sempre destacado entre parenteses. )
 
 API e MODEL
 
 MODEL
 
-Dentro do MODEL a gente vai criar o modelo de RESPONSE
+Dentro do MODEL vamos criar o modelo de RESPONSE
 
- (CategoryResponse.kt ) que existe no nosso sevidor,
+ (CategoryResponse.kt ) que existe em nosso sevidor,
 
-e dentro da API a gente vai criar nossa API ( MealApi ) onde vai fazer
-a rquisição propriamente no nosso servidor.
+e dentro da API vamos criar nossa API ( MealApi ) onde vai fazer
+a requisição propriamente dita no nosso servidor.
 
 API
 Nossa API é composta por um método GET  (getCategories() ) e a resposta o,
 RESPONSE dessa API ( Response<listCategories...) é uma lista de categorias.
+
 Com o nosso servidor montado vamos ver como ficou o repositório.
 (MealRepository.kt)
 
@@ -102,7 +108,8 @@ Repare que esta sendo criado uma INTERFACE (interface MealRepository )
 private val service: MealAPI ..)
 
 estamos fazendo isso basicamente por duas coisas:
-para facilitar os testes e a minha injeção de dependência.
+para facilitar os testes e a  injeção de dependência.
+
 Depois aprofrundaremos nesse assunto.
 
 Olhando a implementação da função GET CATEGORY o que acontece?
@@ -113,18 +120,23 @@ O REPOSITORY sabe exatamente onde ele tem que buscar as informações.
 
 Então nesse caso ele sabe que para pegar nossa categorias ele tem que
  acessar o nosso método GET CATEGORY
-(return when (result) ) e após a chamada de serviço nós temos o nosso
+ 
+(return when (result) ) 
+e após a chamada de serviço nós temos o nosso
  RESULT.
+ 
 O nosso RESULT (return when (result) ) ele pode assumir dois estados um
-e sucesso e outro de erro.
+de sucesso e outro de erro.
+
 Em caso de erro nós vamos apenas retornar uma lista vazia e isso
 apenas para simplificar o exemplo.
+
 Porém em caso de sucesso ( val categoryResponseList = result...)
 o que nós temos dentro do nosso RESULT é uma lista de CATEGORY RESPONSE,
 um objeto que a minha camada de dados conhece, porém
 eu não posso retornar isso para a minha camada de DOMINIO.
 
-Então é aqui que tenho que fazer é o mapeamento do objeto
+Então é aqui que tenho que fazer o mapeamento do objeto
 (categoryResponseList.map ) ou uma conversão ( it.toCategory() )
  de CATEGORY RESPONSE para CATEGORY e para fazer a conversão desse objeto
  nesse exemplo eu  utilizao uma Extension functions,
@@ -134,6 +146,7 @@ Então é aqui que tenho que fazer é o mapeamento do objeto
  para fazer o mapeamento.
 
 Você pode fazer isso de outra maneira.. dá que você achar melhor.
+
 O importante mesmo  é que sua camada de DOMINIO não conheça o objeto
 de RESPONSE.
 
@@ -145,11 +158,12 @@ Imagina que o seu objeto o CATEGORY RESPONSE
 (..
 it.toCategory()
 )
+
 e ele  é utilizado em vários "End Point" do seu servidor o que é algo
 bem comum de acontecer, imagina também que por algum motivo vai ocorrer
-uma mudança no seu servidor e se você não possui esse mapeamento o que
+uma mudança no seu servidor e se você não possui esse mapeamento,  o que
 vai acontecer, você vai ter que fazer além da mudança desse objeto na
-sua camada de dados.
+sua camada de dados, muitas outras modificações.
 
 Você vai precisar também ter que procurar esse objeto em outras pontas
 da sua aplicação, lá na camada de dominio, todo que esse objeto  tem  que
@@ -180,11 +194,14 @@ e  USER CASE repare que também temos a INTERFACE
 (Interface GetCategoriesCase )
 
 e a sua implementação usando Koin, saiba mais em: https://insert-koin.io/
+
 (
 ) : GetCategoriesUseCase {    )
 como nesse caso nós só precisamos buscar a nossa lista de CATEGORIAS,
+
 ( mealRepository.getCategories()  )
-aqui só esta acontecendo a nossa chamada para o nosso repositório que
+
+aqui esta acontecendo a nossa chamada para o nosso repositório que
 esta sendo injetado no construtor da implementação.
 
 Mas digamos que por algum motivo nossa lista tenha que ser modificada
@@ -208,9 +225,11 @@ Lembra que na MVVM a VIEW conhece a VIEWMODEL e que ela notifica a VIEW.
 ( private val viewModel: MealViewModel by sharedViewModel () )
 
 Vamos passo a passo aqui.
+
 A VIEW possui uma instância da nossa VIEW MODEL,  que é feita aqui
 e a VIEW também observa uma variável do nosso VIEW MODEL de que é feita a
-nessa linha e nessa parte
+nessa linha e nessa parte:
+
 (viewModel.categories.abserve( viesLifeCyclerOwner )
 que ocorre uma mudança no estado da nossa variável lá no VIEW MODEL
 ( populateMealCategories(listCategory:Model )
@@ -218,6 +237,7 @@ e cada mudança de estado o PopulateMealCategories é chamado com um
 novo valor e aqui ouve  o viewModel.getCategories() é a inicialização
 da nossa aplicação.
 ( viewModel.getCategories () )
+
 É aqui que ocorre a inicialização da aplicação.
 ( class MealViewModel
 ...
