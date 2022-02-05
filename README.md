@@ -9,9 +9,10 @@ Nessa aplicação temos três camadas do Clean que representam
 APRESENTAÇÃO (Presenters)  - DOMINIO  (Domain ) -DADOS (domain)
 Dentro da camada PRESENTER temos a nossa MVVM composta pela VIEW e
  VIEW MODEL
-TRAFEGO
 
--O usuário tem uma iteração com a parte da VIEW
+# FLUXO NA APLICAÇÃO NA ARQUITETURA LIMPA
+
+- O usuário tem uma iteração com a parte da VIEW
 
 - A VIEW pega essa informação e repassa para a VIEWMODEL, para que ela
 trate essa informção e ser for necessario fazer alguma operação com essa
@@ -53,8 +54,7 @@ Composto pela VIEW é aqui que vamos criar um fragmento, o nosso FRAGMENT
 que vai se comunicar com o nosso VIEW MODEL e o VIEWMODEL e vai fazer
  a comunicação com a camada de DOMiNIO.
 
-NA APLICAÇÃO
-+++++++++++++
+# NA APLICAÇÃO ONDE USAMOS CLEAN COM MVVM
 
 Nessa  aplicação simples no ANDROID,  aqui dentro eu criei só um modulo
 a mais chamado HELPERs, dentro desse módulo eu tenho basicamente a minha
@@ -69,6 +69,8 @@ Então vamos começar falando da camada de DATA.
 
 Como sabe que ela vai ter que buscar as informações em um servidor dentro do
 pacote DATA vamos  criar dois pacotes.
+
+## DATA
 
 (* Nesse exercicio aprenda a localizar no código os pontos de marcação do
  fluxo, aqui sermpre destacado em vermelho e entre parenteses. )
@@ -156,7 +158,8 @@ mapeamento.
 ( data )
 Com a camada de DADOS concluida vamos para a camada de DOMINIO.
 (domain )
-DOMAIN
+
+## DOMAIN
 Onde ficam as nossas regras de negócio.
 (Category.kt)
 
@@ -187,6 +190,8 @@ seguindo algum padrão,  tipo um filtro ou alguma coisa parecida e nossa
 camada que iremos manipular a nossa lista,  já que isso, essa manipulações
 fazem parte da nossa regra de negócio; e passando para a ultima camada o
 PRESENTER.
+
+## PRESENTER
 
 Onde fica o nosso MVVM e começando pela VIEW o nosso FRAGMENT
 ( PRESENTER
