@@ -2,15 +2,18 @@
 
 ESTRUTURA DE CLEAN e MVVM
 
-ARQUITETURA LIMPA DE FORMA SIMPLES
-_____________________________________
+ARQUITETURA LIMPA de forma simples de entender na prática
 
-Nessa aplicação temos três camadas do Clean que representam
-APRESENTAÇÃO (Presenters)  - DOMINIO  (Domain ) -DADOS (domain)
+Nessa aplicação temos três camadas do Clean que representam:
+
+APRESENTAÇÃO ( Presenters )
+DOMINIO  ( Domain )
+DADOS ( Data )
+
 Dentro da camada PRESENTER temos a nossa MVVM composta pela VIEW e
  VIEW MODEL
 
-# FLUXO NA APLICAÇÃO NA ARQUITETURA LIMPA
+# Fluxo de uma aplicação com  ARQUITETURA LIMPA
 
 - O usuário tem uma iteração com a parte da VIEW
 
@@ -28,7 +31,7 @@ da VIEW e mostra a informação nova para o usuário.
 
 O que representa cada uma das camadas?
 
-DADOS
+DATA ( dados )
 
 Quando a gente fala da camada de DADOS estamos falando que vamos ter
 um repositório e este deve saber onde ele deve buscar as informações
@@ -41,7 +44,7 @@ Então vai ter uma função.
 Essa função vai requisitar do nosso SERVICE as informações que ela precisa.
 E vai receber essa informação do nosso SERVICE através de um RESPONSE.
 
-DOMINIO
+DOMAIN  ( dominio )
 
 Já a nossa camada de dominio ela vai ser composta por uma USER CASE .
 Ela vai buscar a informação na nossa camada de DADOS através de uma
@@ -49,12 +52,12 @@ função e vai receber como resposta dessa chamada em uma lista de
 categorias e por fim na última camada do CLEAN temos a aprensentação
  " PRESENTER."
 
-PRESENTER
+PRESENTER ( apresentação )
 Composto pela VIEW é aqui que vamos criar um fragmento, o nosso FRAGMENT
 que vai se comunicar com o nosso VIEW MODEL e o VIEWMODEL e vai fazer
  a comunicação com a camada de DOMiNIO.
 
-# NA APLICAÇÃO ONDE USAMOS CLEAN COM MVVM
+# Na aplicação onde usamos a CLEAN com MVVM
 
 Nessa  aplicação simples no ANDROID,  aqui dentro eu criei só um modulo
 a mais chamado HELPERs, dentro desse módulo eu tenho basicamente a minha
@@ -70,7 +73,7 @@ Então vamos começar falando da camada de DATA.
 Como sabe que ela vai ter que buscar as informações em um servidor dentro do
 pacote DATA vamos  criar dois pacotes.
 
-## DATA
+## DATA  ( Dados )
 
 (* Nesse exercicio aprenda a localizar no código os pontos de marcação do
  fluxo, aqui sermpre destacado em vermelho e entre parenteses. )
@@ -159,7 +162,7 @@ mapeamento.
 Com a camada de DADOS concluida vamos para a camada de DOMINIO.
 (domain )
 
-## DOMAIN
+## DOMAIN ( Dominio )
 Onde ficam as nossas regras de negócio.
 (Category.kt)
 
@@ -191,7 +194,7 @@ camada que iremos manipular a nossa lista,  já que isso, essa manipulações
 fazem parte da nossa regra de negócio; e passando para a ultima camada o
 PRESENTER.
 
-## PRESENTER
+## PRESENTER ( Apresentação )
 
 Onde fica o nosso MVVM e começando pela VIEW o nosso FRAGMENT
 ( PRESENTER
